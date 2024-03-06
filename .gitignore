@@ -1,0 +1,23 @@
+# Build folders
+[Bb]in/
+[Oo]bj/
+[Dd]ebug/
+[Rr]elease/
+
+# Other folders
+[Gg]enerated/
+.config/
+
+# User-specific files
+*.suo
+*.user
+*.editorconfig
+*.pubxml
+.idea/
+.vs/
+.vscode/
+
+#Other files
+*.log
+*.received.*
+/src/NugetPackages
