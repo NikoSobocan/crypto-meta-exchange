@@ -12,8 +12,8 @@ public class OrderManager : IOrderManager
     _dataProvider = dataProvider;
   }
 
-  public async Task<IList<OrderBook>> GetOrderBooks()
+  public async Task<IList<OrderBook>> GetOrderBooks(int numberOfBooks)
   {
-    return await _dataProvider.GetOrderBookData();
+    return await _dataProvider.GetOrderBookData(numberOfBooks);
   }
 }

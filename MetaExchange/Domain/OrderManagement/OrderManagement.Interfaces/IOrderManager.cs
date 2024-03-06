@@ -8,6 +8,6 @@ namespace OrderManagement.Interfaces;
 
 public interface IOrderManager
 {
-  Task<IList<OrderBook>> GetOrderBooks();
+  Task<IList<OrderBook>> GetOrderBooks(int numberOfBooks);
 }
 
