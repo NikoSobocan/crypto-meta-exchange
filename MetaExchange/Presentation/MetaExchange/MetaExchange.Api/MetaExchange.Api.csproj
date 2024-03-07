@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>a4d5d6a6-fa8c-43a7-b868-8b68acff5c8d</UserSecretsId>
+    <DockerDefaultTargetOS>Windows</DockerDefaultTargetOS>
+    <DockerfileContext>..\..\..</DockerfileContext>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.5" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Application\Services\OrderService\OrderService.Impl\OrderService.Impl.csproj" />
+    <ProjectReference Include="..\..\..\Application\Services\OrderService\OrderService.Interfaces\OrderService.Interfaces.csproj" />
+    <ProjectReference Include="..\..\..\Domain\OrderManagement\OrderManagement.Impl\OrderManagement.Impl.csproj" />
+    <ProjectReference Include="..\..\..\Domain\OrderManagement\OrderManagement.Interfaces\OrderManagement.Interfaces.csproj" />
+    <ProjectReference Include="..\..\..\Infrastructure\OrderManagement\OrderManagement.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>
