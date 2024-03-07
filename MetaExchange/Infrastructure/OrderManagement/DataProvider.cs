@@ -17,13 +17,32 @@ public class DataProvider : IDataProvider
     {
       int booksCounter = 0;
       string? line;
+      string exchangeBTCBalance;
+      string exchangeEURBalance;
       while ((line = reader.ReadLine()) != null)
       {
+        exchangeEURBalance = line.Substring(0, line.IndexOf('.'));
+        exchangeBTCBalance = line.Substring(line.IndexOf('.') + 1, line.IndexOf('\t') - line.IndexOf('.') - 1);
+
         line = line.Substring(line.IndexOf('\t') + 1);
-        OrderBook? orderBook = JsonConvert.DeserializeObject<OrderBook>(line, new JsonSerializerSettings { Culture = System.Globalization.CultureInfo.CurrentCulture });
+        OrderBook? orderBook = JsonConvert.DeserializeObject<OrderBook>(line);
 
         if (orderBook != null)
         {
+          orderBook.Id = booksCounter + 1;
+
+          if (decimal.TryParse(exchangeEURBalance, out decimal parsedEURBalance))
+          {
+            orderBook.BalanceEUR = parsedEURBalance;
+          };
+          if (decimal.TryParse(exchangeBTCBalance, out decimal parsedBTCBalance))
+          {
+            orderBook.BalanceBTC = parsedBTCBalance;
+          };
+
+          orderBook.Bids.ToList().ForEach(orderWrapper => orderWrapper.Order.OrderBookId = orderBook.Id);
+          orderBook.Asks.ToList().ForEach(orderWrapper => orderWrapper.Order.OrderBookId = orderBook.Id);
+
           orderBooks.Add(orderBook);
           booksCounter++;
 
@@ -33,7 +52,6 @@ public class DataProvider : IDataProvider
           }
         }
       }
-
     }
 
     return orderBooks;
