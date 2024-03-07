@@ -43,7 +43,7 @@ public class HostedService : IHostedService
 
       foreach (var order in await _orderService.GetOptimalOrderExecution(orderType, orderAmount))
       {
-        System.Console.WriteLine(JsonConvert.SerializeObject(order, new StringEnumConverter()) + '\n');
+        System.Console.WriteLine('\n' + JsonConvert.SerializeObject(order, new StringEnumConverter()));
       }
     }
   }

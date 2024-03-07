@@ -3,6 +3,7 @@
 public class Order
 {
   public int? Id { get; set; }
+  public int OrderBookId { get; set; }
   public DateTime Time { get; set; }
   public OrderTypeEnum Type { get; set; }
   public OrderKindEnum Kind { get; set; }
