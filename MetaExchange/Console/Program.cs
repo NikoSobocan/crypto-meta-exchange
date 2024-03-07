@@ -1,9 +1,37 @@
-﻿using MetaExchange.Infrastructure;
+﻿using MetaExchange.Console;
+using MetaExchange.Infrastructure;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using OrderManagement.Interfaces;
+using OrderManagement.Interfaces.IDataProviders;
+using OrderService.Impl.Services;
+using OrderService.Interfaces.Services;
 
-Console.WriteLine("Hello, World!");
+internal class Program
+{
+  public static async Task Main(string[] args)
+  {
+    var host = CreateHostBuilder(args);
 
-DataProvider provider = new DataProvider();
+    await host.RunAsync();
+  }
 
-var temp = await provider.GetOrderBookData(3);
-
-Console.ReadKey();
+  public static IHost CreateHostBuilder(string[] args)
+  {
+    return Host.CreateDefaultBuilder(args)
+      .ConfigureServices((context, services) =>
+      {
+        services.AddLogging(builder =>
+        {
+          builder.AddConsole();
+          builder.AddDebug();
+          builder.SetMinimumLevel(LogLevel.Debug);
+        });
+        services.AddSingleton<IOrderManager, OrderManagement.Impl.OrderManager>();
+        services.AddSingleton<IOrderService, OrderService.Impl.Services.OrderService>();
+        services.AddSingleton<IDataProvider, DataProvider>();
+        services.AddHostedService<HostedService>();
+      }).Build();
+  }
+}

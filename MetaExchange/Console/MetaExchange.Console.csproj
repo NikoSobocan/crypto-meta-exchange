@@ -8,6 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Application\Services\OrderService\OrderService.Impl\OrderService.Impl.csproj" />
+    <ProjectReference Include="..\Application\Services\OrderService\OrderService.Interfaces\OrderService.Interfaces.csproj" />
+    <ProjectReference Include="..\Domain\OrderManagement\OrderManagement.Impl\OrderManagement.Impl.csproj" />
     <ProjectReference Include="..\Infrastructure\OrderManagement\OrderManagement.Infrastructure.csproj" />
   </ItemGroup>
 
