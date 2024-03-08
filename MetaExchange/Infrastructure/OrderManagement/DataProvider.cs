@@ -8,7 +8,7 @@ namespace MetaExchange.Infrastructure;
 public class DataProvider : IDataProvider
 {
   private const string DATA_FILE_PATH = "../../../../Infrastructure/OrderManagement/Data/order_books_data";
-  private string filePath = Environment.GetEnvironmentVariable("DATA_FILE_PATH") ?? DATA_FILE_PATH;
+  private readonly string filePath = Environment.GetEnvironmentVariable("DATA_FILE_PATH") ?? DATA_FILE_PATH;
 
   public async Task<IList<OrderBook>> GetOrderBookData(int numberOfBooks)
   {
@@ -21,7 +21,7 @@ public class DataProvider : IDataProvider
       string? line;
       string exchangeBTCBalance;
       string exchangeEURBalance;
-      while ((line = reader.ReadLine()) != null)
+      while ((line = await reader.ReadLineAsync()) != null)
       {
         exchangeEURBalance = line.Substring(0, line.IndexOf('.'));
         exchangeBTCBalance = line.Substring(line.IndexOf('.') + 1, line.IndexOf('\t') - line.IndexOf('.') - 1);
