@@ -21,7 +21,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\OrderService.Impl\OrderService.Impl.csproj" />
-    <ProjectReference Include="..\OrderService.Interfaces\OrderService.Interfaces.csproj" />
   </ItemGroup>
 
 </Project>

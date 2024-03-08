@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OrderManagement.Interfaces;
+namespace OrderManagement.Interfaces.Enums;
 
-public enum OrderKindEnum
+public enum OrderTypeEnum
 {
-  Limit,
-  Market,
-  Stop
+    Buy = 0,
+    Sell = 1
 }

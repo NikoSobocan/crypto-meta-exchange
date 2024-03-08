@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-using OrderManagement.Interfaces;
+using OrderManagement.Interfaces.Enums;
 using OrderService.Interfaces.Services;
 
 namespace MetaExchange.Console;

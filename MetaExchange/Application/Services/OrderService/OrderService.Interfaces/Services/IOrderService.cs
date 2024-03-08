@@ -1,4 +1,5 @@
-﻿using OrderManagement.Interfaces;
+﻿using OrderManagement.Interfaces.Enums;
+using OrderManagement.Interfaces.Responses;
 
 namespace OrderService.Interfaces.Services;
 

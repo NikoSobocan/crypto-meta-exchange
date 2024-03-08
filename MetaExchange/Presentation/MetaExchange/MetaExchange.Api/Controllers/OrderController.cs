@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
-using OrderManagement.Interfaces;
+using OrderManagement.Interfaces.Enums;
+using OrderManagement.Interfaces.Responses;
 using OrderService.Interfaces.Services;
 using System.Net.Mime;
 

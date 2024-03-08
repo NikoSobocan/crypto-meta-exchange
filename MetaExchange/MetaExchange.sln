@@ -13,9 +13,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetaExchange.Console", "Con
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrderManagement.Infrastructure", "Infrastructure\OrderManagement\OrderManagement.Infrastructure.csproj", "{C4C64CC2-D619-419D-893F-27FA30EC9194}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderManagement.Impl", "Domain\OrderManagement\OrderManagement.Impl\OrderManagement.Impl.csproj", "{6D4DE607-ABE2-4F09-B488-D34C29E49D95}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrderManagement.Impl", "Domain\OrderManagement\OrderManagement.Impl\OrderManagement.Impl.csproj", "{6D4DE607-ABE2-4F09-B488-D34C29E49D95}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderManagement.Interfaces", "Domain\OrderManagement\OrderManagement.Interfaces\OrderManagement.Interfaces.csproj", "{F966E50E-EDA6-4A82-A2CB-202A74C05982}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrderManagement.Interfaces", "Domain\OrderManagement\OrderManagement.Interfaces\OrderManagement.Interfaces.csproj", "{F966E50E-EDA6-4A82-A2CB-202A74C05982}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{49B6F41C-8B50-4D14-8446-817C4CE0C609}"
 EndProject
@@ -23,15 +23,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{D3
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "OrderService", "OrderService", "{E5EB670C-EFFA-49A2-9623-5F82057FA610}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderService.Impl", "Application\Services\OrderService\OrderService.Impl\OrderService.Impl.csproj", "{920B2D32-BB7F-4BA0-B799-85777B1A7B2D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrderService.Impl", "Application\Services\OrderService\OrderService.Impl\OrderService.Impl.csproj", "{920B2D32-BB7F-4BA0-B799-85777B1A7B2D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderService.Interfaces", "Application\Services\OrderService\OrderService.Interfaces\OrderService.Interfaces.csproj", "{21604E55-7D79-4DBA-AADF-D418DD40B433}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrderService.Interfaces", "Application\Services\OrderService\OrderService.Interfaces\OrderService.Interfaces.csproj", "{21604E55-7D79-4DBA-AADF-D418DD40B433}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{EF8F72D5-B788-4A0B-A24B-C730FC23AEF8}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MetaExchange", "MetaExchange", "{0A81879B-F087-4B72-936F-36303427B7AE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetaExchange.Api", "Presentation\MetaExchange\MetaExchange.Api\MetaExchange.Api.csproj", "{2E127ECF-740E-4E85-8DCE-A8C63777EA77}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetaExchange.Api", "Presentation\MetaExchange\MetaExchange.Api\MetaExchange.Api.csproj", "{2E127ECF-740E-4E85-8DCE-A8C63777EA77}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderService.Tests", "Application\Services\OrderService\OrderService.Tests\OrderService.Tests.csproj", "{3D1B0804-F9E8-4B91-9203-954C37866DD5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -67,6 +69,10 @@ Global
 		{2E127ECF-740E-4E85-8DCE-A8C63777EA77}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2E127ECF-740E-4E85-8DCE-A8C63777EA77}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2E127ECF-740E-4E85-8DCE-A8C63777EA77}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3D1B0804-F9E8-4B91-9203-954C37866DD5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D1B0804-F9E8-4B91-9203-954C37866DD5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D1B0804-F9E8-4B91-9203-954C37866DD5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D1B0804-F9E8-4B91-9203-954C37866DD5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -82,6 +88,7 @@ Global
 		{21604E55-7D79-4DBA-AADF-D418DD40B433} = {E5EB670C-EFFA-49A2-9623-5F82057FA610}
 		{0A81879B-F087-4B72-936F-36303427B7AE} = {EF8F72D5-B788-4A0B-A24B-C730FC23AEF8}
 		{2E127ECF-740E-4E85-8DCE-A8C63777EA77} = {0A81879B-F087-4B72-936F-36303427B7AE}
+		{3D1B0804-F9E8-4B91-9203-954C37866DD5} = {E5EB670C-EFFA-49A2-9623-5F82057FA610}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {13A21A62-A45B-4E07-B360-99D5E813880E}

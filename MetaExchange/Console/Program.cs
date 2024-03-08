@@ -3,9 +3,9 @@ using MetaExchange.Infrastructure;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using OrderManagement.Impl;
 using OrderManagement.Interfaces;
 using OrderManagement.Interfaces.IDataProviders;
-using OrderService.Impl.Services;
 using OrderService.Interfaces.Services;
 
 internal class Program
@@ -28,7 +28,7 @@ internal class Program
           builder.AddDebug();
           builder.SetMinimumLevel(LogLevel.Debug);
         });
-        services.AddSingleton<IOrderManager, OrderManagement.Impl.OrderManager>();
+        services.AddSingleton<IOrderManager, OrderManager>();
         services.AddSingleton<IOrderService, OrderService.Impl.Services.OrderService>();
         services.AddSingleton<IDataProvider, DataProvider>();
         services.AddHostedService<HostedService>();

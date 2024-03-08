@@ -1,4 +1,6 @@
 ﻿
+using OrderManagement.Interfaces.Responses;
+
 namespace OrderManagement.Interfaces.IDataProviders;
 
 public interface IDataProvider

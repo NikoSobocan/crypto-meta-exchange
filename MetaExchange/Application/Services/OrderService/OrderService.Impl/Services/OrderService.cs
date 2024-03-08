@@ -1,5 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using OrderManagement.Interfaces;
+using OrderManagement.Interfaces.Enums;
+using OrderManagement.Interfaces.Responses;
 using OrderService.Interfaces.Services;
 
 namespace OrderService.Impl.Services;
@@ -114,6 +116,4 @@ public class OrderService : IOrderService
       }
     }
   }
-
-  // TODO: Niko: logging & error handling
 }
