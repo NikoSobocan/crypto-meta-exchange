@@ -1,3 +1,4 @@
+using MetaExchange.Api.Filters;
 using MetaExchange.Infrastructure;
 using OrderManagement.Impl;
 using OrderManagement.Interfaces;
@@ -6,7 +7,11 @@ using OrderService.Interfaces.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers();
+builder.Services.AddControllers(options =>
+{
+  options.Filters.Add<CustomExceptionFilter>();
+});
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
