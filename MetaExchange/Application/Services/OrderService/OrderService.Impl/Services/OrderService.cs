@@ -19,11 +19,11 @@ public class OrderService : IOrderService
 
   private const int ORDER_BOOK_DEPTH = 3;
 
-  public async Task<IList<Order>> GetOptimalOrderExecution(OrderTypeEnum orderType, decimal orderAmount)
+  public async Task<IList<Order>> GetOptimalOrderExecution(OrderTypeEnum orderType, decimal orderAmountInBTC)
   {
     if (_logger.IsEnabled(LogLevel.Debug))
     {
-      _logger.LogDebug($"GetOptimalOrderExecution called with order type: {orderType} and order amount: {orderAmount}");
+      _logger.LogDebug($"GetOptimalOrderExecution called with order type: {orderType} and order amount: {orderAmountInBTC}");
     }
    
     IList<Order> orderExecutions = new List<Order>();
@@ -35,7 +35,7 @@ public class OrderService : IOrderService
       .OrderBy(wrapper => orderType == OrderTypeEnum.Buy ? wrapper.Order.Price : -wrapper.Order.Price)
       .ToList();
 
-    decimal remaingOrderAmount = orderAmount;
+    decimal remaingOrderAmount = orderAmountInBTC;
 
     while (remaingOrderAmount > 0 && orders.Count > 0)
     {
@@ -54,6 +54,7 @@ public class OrderService : IOrderService
       }
       else
       {
+        // Partial order fill
         orderExecutions.Add(new Order
         {
           OrderBookId = order.OrderBookId,
@@ -85,6 +86,11 @@ public class OrderService : IOrderService
 
   private void AdjustExchangeBalance(OrderBook orderBook, Order order, decimal BTCAmount, OrderTypeEnum orderType)
   {
+    if (_logger.IsEnabled(LogLevel.Debug))
+    {
+      _logger.LogDebug($"Adjusting exchange balance for order type: {orderType} and amount: {BTCAmount}");
+    }
+
     if (orderType == OrderTypeEnum.Buy)
     {
       orderBook.BalanceBTC = orderBook.BalanceBTC - BTCAmount;
@@ -99,6 +105,11 @@ public class OrderService : IOrderService
 
   private void CheckExchangeBalance(OrderBook orderBook, Order order, decimal BTCAmount, OrderTypeEnum orderType)
   {
+    if (_logger.IsEnabled(LogLevel.Debug))
+    {
+      _logger.LogDebug($"Checking exchange balance for order type: {orderType} and amount: {BTCAmount}");
+    }
+
     if (orderType == OrderTypeEnum.Buy)
     {
       if (orderBook.BalanceBTC < BTCAmount)
