@@ -25,7 +25,7 @@ public class OrderService : IOrderService
     {
       _logger.LogDebug($"GetOptimalOrderExecution called with order type: {orderType} and order amount: {orderAmountInBTC}");
     }
-   
+
     IList<Order> orderExecutions = new List<Order>();
 
     List<OrderBook> orderBooks = (await _orderManager.GetOrderBooks(ORDER_BOOK_DEPTH, cancellationToken)).ToList();
@@ -94,7 +94,7 @@ public class OrderService : IOrderService
     if (orderType == OrderTypeEnum.Buy)
     {
       orderBook.BalanceBTC = orderBook.BalanceBTC - BTCAmount;
-      orderBook.BalanceEUR =  orderBook.BalanceEUR + BTCAmount * order.Price;
+      orderBook.BalanceEUR = orderBook.BalanceEUR + BTCAmount * order.Price;
     }
     else if (orderType == OrderTypeEnum.Sell)
     {

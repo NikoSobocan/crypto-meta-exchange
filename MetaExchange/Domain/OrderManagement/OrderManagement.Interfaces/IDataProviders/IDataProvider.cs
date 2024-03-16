@@ -1,6 +1,5 @@
 ﻿
 using OrderManagement.Interfaces.Responses;
-using System.Threading;
 
 namespace OrderManagement.Interfaces.IDataProviders;
 

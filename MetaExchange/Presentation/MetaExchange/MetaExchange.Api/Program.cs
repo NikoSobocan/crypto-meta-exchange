@@ -4,13 +4,21 @@ using OrderManagement.Impl;
 using OrderManagement.Interfaces;
 using OrderManagement.Interfaces.IDataProviders;
 using OrderService.Interfaces.Services;
+using System.Text.Json.Serialization;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers(options =>
-{
-  options.Filters.Add<CustomExceptionFilter>();
-});
+builder.Services
+  .AddControllers(options =>
+  {
+    options.Filters.Add<CustomExceptionFilter>();
+  })
+  .AddJsonOptions(options =>
+  {
+    options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+  });
+
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

@@ -5,9 +5,7 @@ using Moq;
 using OrderManagement.Interfaces;
 using OrderManagement.Interfaces.Enums;
 using OrderManagement.Interfaces.Responses;
-using OrderService.Impl.Services;
 using OrderService.Interfaces.Services;
-using System.Configuration;
 
 namespace OrderService.Tests.Services
 {
