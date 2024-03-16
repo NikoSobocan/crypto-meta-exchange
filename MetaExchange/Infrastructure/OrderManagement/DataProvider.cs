@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using OrderManagement.Interfaces.IDataProviders;
 using OrderManagement.Interfaces.Responses;
 using System.Reflection;
@@ -10,7 +11,7 @@ public class DataProvider : IDataProvider
   private const string DATA_FILE_PATH = "../../../../Infrastructure/OrderManagement/Data/order_books_data";
   private readonly string filePath = Environment.GetEnvironmentVariable("DATA_FILE_PATH") ?? DATA_FILE_PATH;
 
-  public async Task<IList<OrderBook>> GetOrderBookData(int numberOfBooks)
+  public async Task<IList<OrderBook>> GetOrderBookData(int numberOfBooks, CancellationToken cancellationToken)
   {
     var orderBooks = new List<OrderBook>();
 
@@ -21,8 +22,11 @@ public class DataProvider : IDataProvider
       string? line;
       string exchangeBTCBalance;
       string exchangeEURBalance;
-      while ((line = await reader.ReadLineAsync()) != null)
+
+      while ((line = await reader.ReadLineAsync().ConfigureAwait(false)) != null)
       {
+        cancellationToken.ThrowIfCancellationRequested();
+
         exchangeEURBalance = line.Substring(0, line.IndexOf('.'));
         exchangeBTCBalance = line.Substring(line.IndexOf('.') + 1, line.IndexOf('\t') - line.IndexOf('.') - 1);
 

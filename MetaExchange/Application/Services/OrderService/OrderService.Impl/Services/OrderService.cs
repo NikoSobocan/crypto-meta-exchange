@@ -19,7 +19,7 @@ public class OrderService : IOrderService
 
   private const int ORDER_BOOK_DEPTH = 3;
 
-  public async Task<IList<Order>> GetOptimalOrderExecution(OrderTypeEnum orderType, decimal orderAmountInBTC)
+  public async Task<IList<Order>> GetOptimalOrderExecution(OrderTypeEnum orderType, decimal orderAmountInBTC, CancellationToken cancellationToken)
   {
     if (_logger.IsEnabled(LogLevel.Debug))
     {
@@ -28,7 +28,7 @@ public class OrderService : IOrderService
    
     IList<Order> orderExecutions = new List<Order>();
 
-    List<OrderBook> orderBooks = (await _orderManager.GetOrderBooks(ORDER_BOOK_DEPTH)).ToList();
+    List<OrderBook> orderBooks = (await _orderManager.GetOrderBooks(ORDER_BOOK_DEPTH, cancellationToken)).ToList();
 
     List<OrderWrapper> orders = orderBooks
       .SelectMany(orderBooks => orderType == OrderTypeEnum.Buy ? orderBooks.Asks : orderBooks.Bids)

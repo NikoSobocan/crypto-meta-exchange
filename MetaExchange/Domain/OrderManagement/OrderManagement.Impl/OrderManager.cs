@@ -13,8 +13,8 @@ public class OrderManager : IOrderManager
     _dataProvider = dataProvider;
   }
 
-  public async Task<IList<OrderBook>> GetOrderBooks(int numberOfBooks)
+  public async Task<IList<OrderBook>> GetOrderBooks(int numberOfBooks, CancellationToken cancellationToken)
   {
-    return await _dataProvider.GetOrderBookData(numberOfBooks);
+    return await _dataProvider.GetOrderBookData(numberOfBooks, cancellationToken);
   }
 }

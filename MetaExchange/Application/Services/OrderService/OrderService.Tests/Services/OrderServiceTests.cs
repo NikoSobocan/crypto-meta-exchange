@@ -11,7 +11,7 @@ using System.Configuration;
 
 namespace OrderService.Tests.Services
 {
-    [TestClass]
+  [TestClass]
   public class OrderServiceTests
   {
     private IFixture? _fixture;
@@ -32,11 +32,11 @@ namespace OrderService.Tests.Services
     {
       List<OrderBook> orderBooks = GetMockOrderBookData();
 
-      _orderManagerMock.Setup(x => x.GetOrderBooks(It.IsAny<int>())).ReturnsAsync(orderBooks);
+      _orderManagerMock.Setup(x => x.GetOrderBooks(It.IsAny<int>(), It.IsAny<CancellationToken>())).ReturnsAsync(orderBooks);
 
-      IList<Order> orderExecution = await _orderService.GetOptimalOrderExecution(OrderTypeEnum.Buy, 1.5M);
+      IList<Order> orderExecution = await _orderService.GetOptimalOrderExecution(OrderTypeEnum.Buy, 1.5M, CancellationToken.None);
 
-      _orderManagerMock.Verify(x => x.GetOrderBooks(It.IsAny<int>()), Times.Once);
+      _orderManagerMock.Verify(x => x.GetOrderBooks(It.IsAny<int>(), It.IsAny<CancellationToken>()), Times.Once);
       orderExecution.Count.Should().Be(2);
     }
 
@@ -45,11 +45,11 @@ namespace OrderService.Tests.Services
     {
       List<OrderBook> orderBooks = GetMockOrderBookData();
 
-      _orderManagerMock.Setup(x => x.GetOrderBooks(It.IsAny<int>())).ReturnsAsync(orderBooks);
+      _orderManagerMock.Setup(x => x.GetOrderBooks(It.IsAny<int>(), It.IsAny<CancellationToken>())).ReturnsAsync(orderBooks);
 
       await Assert.ThrowsExceptionAsync<Exception>(async () =>
       {
-        IList<Order> orderExecution = await _orderService.GetOptimalOrderExecution(OrderTypeEnum.Buy, 1000);
+        IList<Order> orderExecution = await _orderService.GetOptimalOrderExecution(OrderTypeEnum.Buy, 1000, CancellationToken.None);
       });
     }
 
@@ -58,11 +58,11 @@ namespace OrderService.Tests.Services
     {
       List<OrderBook> orderBooks = GetMockOrderBookData();
 
-      _orderManagerMock.Setup(x => x.GetOrderBooks(It.IsAny<int>())).ReturnsAsync(orderBooks);
+      _orderManagerMock.Setup(x => x.GetOrderBooks(It.IsAny<int>(), It.IsAny<CancellationToken>())).ReturnsAsync(orderBooks);
 
       await Assert.ThrowsExceptionAsync<Exception>(async () =>
       {
-        IList<Order> orderExecution = await _orderService.GetOptimalOrderExecution(OrderTypeEnum.Sell, 1000);
+        IList<Order> orderExecution = await _orderService.GetOptimalOrderExecution(OrderTypeEnum.Sell, 1000, CancellationToken.None);
       });
     }
 
@@ -73,9 +73,9 @@ namespace OrderService.Tests.Services
 
       List<OrderBook> orderBooksCopy = GetMockOrderBookData();
 
-      _orderManagerMock.Setup(x => x.GetOrderBooks(It.IsAny<int>())).ReturnsAsync(orderBooks);
+      _orderManagerMock.Setup(x => x.GetOrderBooks(It.IsAny<int>(), It.IsAny<CancellationToken>())).ReturnsAsync(orderBooks);
 
-      IList<Order> orderExecution = await _orderService.GetOptimalOrderExecution(OrderTypeEnum.Buy, 1);
+      IList<Order> orderExecution = await _orderService.GetOptimalOrderExecution(OrderTypeEnum.Buy, 1, CancellationToken.None);
 
       orderBooks[0].BalanceBTC.Should().BeLessThan(orderBooksCopy[0].BalanceBTC);
       orderBooks[0].BalanceEUR.Should().BeGreaterThan(orderBooksCopy[0].BalanceEUR);
@@ -89,9 +89,9 @@ namespace OrderService.Tests.Services
 
       List<OrderBook> orderBooksCopy = GetMockOrderBookData();
 
-      _orderManagerMock.Setup(x => x.GetOrderBooks(It.IsAny<int>())).ReturnsAsync(orderBooks);
+      _orderManagerMock.Setup(x => x.GetOrderBooks(It.IsAny<int>(), It.IsAny<CancellationToken>())).ReturnsAsync(orderBooks);
 
-      IList<Order> orderExecution = await _orderService.GetOptimalOrderExecution(OrderTypeEnum.Sell, 1);
+      IList<Order> orderExecution = await _orderService.GetOptimalOrderExecution(OrderTypeEnum.Sell, 1, CancellationToken.None);
 
       orderBooks[0].BalanceBTC.Should().BeGreaterThan(orderBooksCopy[0].BalanceBTC);
       orderBooks[0].BalanceEUR.Should().BeLessThan(orderBooksCopy[0].BalanceEUR);
@@ -102,11 +102,11 @@ namespace OrderService.Tests.Services
     {
       List<OrderBook> orderBooks = GetMockOrderBookData();
 
-      _orderManagerMock.Setup(x => x.GetOrderBooks(It.IsAny<int>())).ReturnsAsync(orderBooks);
+      _orderManagerMock.Setup(x => x.GetOrderBooks(It.IsAny<int>(), It.IsAny<CancellationToken>())).ReturnsAsync(orderBooks);
 
       await Assert.ThrowsExceptionAsync<Exception>(async () =>
       {
-        IList<Order> orderExecution = await _orderService.GetOptimalOrderExecution(OrderTypeEnum.Buy, 11);
+        IList<Order> orderExecution = await _orderService.GetOptimalOrderExecution(OrderTypeEnum.Buy, 11, CancellationToken.None);
       });
 
     }
