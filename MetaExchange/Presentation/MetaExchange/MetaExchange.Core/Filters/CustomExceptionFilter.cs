@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc.Filters;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.Extensions.Logging;
 
-namespace MetaExchange.Api.Filters;
+namespace MetaExchange.Core.Filters;
 
 public class CustomExceptionFilter : IExceptionFilter
 {
@@ -25,3 +27,4 @@ public class CustomExceptionFilter : IExceptionFilter
     };
   }
 }
+

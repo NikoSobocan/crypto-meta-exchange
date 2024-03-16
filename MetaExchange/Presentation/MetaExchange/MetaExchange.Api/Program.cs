@@ -1,4 +1,4 @@
-using MetaExchange.Api.Filters;
+using MetaExchange.Core.Filters;
 using MetaExchange.Infrastructure;
 using OrderManagement.Impl;
 using OrderManagement.Interfaces;

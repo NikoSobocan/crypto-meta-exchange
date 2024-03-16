@@ -15,6 +15,7 @@
     <ProjectReference Include="..\Application\Services\OrderService\OrderService.Impl\OrderService.Impl.csproj" />
     <ProjectReference Include="..\Domain\OrderManagement\OrderManagement.Impl\OrderManagement.Impl.csproj" />
     <ProjectReference Include="..\Infrastructure\OrderManagement\OrderManagement.Infrastructure.csproj" />
+    <ProjectReference Include="..\Presentation\MetaExchange\MetaExchange.Core\MetaExchange.Core.csproj" />
   </ItemGroup>
 
 </Project>

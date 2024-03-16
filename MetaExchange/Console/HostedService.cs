@@ -5,7 +5,7 @@ using Newtonsoft.Json.Converters;
 using OrderManagement.Interfaces.Enums;
 using OrderService.Interfaces.Services;
 
-namespace MetaExchange.Console;
+namespace Presentation.Console;
 
 public class HostedService : IHostedService
 {
@@ -22,7 +22,14 @@ public class HostedService : IHostedService
   {
     _logger.LogInformation("HostedService is starting.");
 
-    await DoWorkAsync(cancellationToken);
+    try
+    {
+      await DoWorkAsync(cancellationToken);
+    }
+    catch (Exception ex)
+    {
+      _logger.LogError($"An unhandled exception occurred: {ex}");
+    }
   }
 
   public Task StopAsync(CancellationToken cancellationToken)
@@ -41,7 +48,7 @@ public class HostedService : IHostedService
       System.Console.WriteLine("Please enter order amount:");
       decimal.TryParse(System.Console.ReadLine(), out decimal orderAmount);
 
-      foreach (var order in await _orderService.GetOptimalOrderExecution(orderType, orderAmount))
+      foreach (var order in await _orderService.GetOptimalOrderExecution(orderType, orderAmount, cancellationToken))
       {
         System.Console.WriteLine('\n' + JsonConvert.SerializeObject(order, new StringEnumConverter()));
       }

@@ -22,10 +22,10 @@ namespace MetaExchange.Api.Controllers
     }
 
     [HttpGet]
-    public async Task<ActionResult<IList<Order>>> GetOrderExecution(OrderTypeEnum orderType, decimal orderAmount)
+    public async Task<ActionResult<IList<Order>>> GetOrderExecution(OrderTypeEnum orderType, decimal orderAmount, CancellationToken cancellationToken)
     {
       _logger.LogInformation($"GetOrderExecution endpoint called with order type: {orderType} and order amount: {orderAmount}");
-      var orders = await _orderService.GetOptimalOrderExecution(orderType, orderAmount);
+      var orders = await _orderService.GetOptimalOrderExecution(orderType, orderAmount, cancellationToken);
       return Ok(orders);
     }
   }
