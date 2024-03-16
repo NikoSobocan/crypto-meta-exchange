@@ -6,7 +6,7 @@ namespace MetaExchange.Infrastructure;
 
 public class DataProvider : IDataProvider
 {
-  private const string DATA_FILE_PATH = "../../../../Infrastructure/OrderManagement/Data/order_books_data";
+  private const string DATA_FILE_PATH = "../../../../../../Infrastructure/OrderManagement/Data/order_books_data";
   private readonly string filePath = Environment.GetEnvironmentVariable("DATA_FILE_PATH") ?? DATA_FILE_PATH;
 
   public async Task<IList<OrderBook>> GetOrderBookData(int numberOfBooks, CancellationToken cancellationToken)

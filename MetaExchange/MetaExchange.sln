@@ -9,8 +9,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastru
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{64944318-592F-48C3-9989-CC31430EBC5B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetaExchange.Console", "Console\MetaExchange.Console.csproj", "{E69BA1D8-64BA-4D6C-BAE7-BCC1674A944F}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrderManagement.Infrastructure", "Infrastructure\OrderManagement\OrderManagement.Infrastructure.csproj", "{C4C64CC2-D619-419D-893F-27FA30EC9194}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrderManagement.Impl", "Domain\OrderManagement\OrderManagement.Impl\OrderManagement.Impl.csproj", "{6D4DE607-ABE2-4F09-B488-D34C29E49D95}"
@@ -37,7 +35,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrderService.Tests", "Appli
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{A30EFA2D-E29D-4CAB-814E-C55CDB63F5A5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetaExchange.Core", "Presentation\MetaExchange\MetaExchange.Core\MetaExchange.Core.csproj", "{B3DD400B-74E7-4007-BF17-89F30A50909D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetaExchange.Core", "Presentation\MetaExchange\MetaExchange.Core\MetaExchange.Core.csproj", "{B3DD400B-74E7-4007-BF17-89F30A50909D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetaExchange.Console", "Presentation\MetaExchange\Console\MetaExchange.Console.csproj", "{5C172BD7-7913-4D9A-8586-028F1E29D1C5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,10 +45,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{E69BA1D8-64BA-4D6C-BAE7-BCC1674A944F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E69BA1D8-64BA-4D6C-BAE7-BCC1674A944F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E69BA1D8-64BA-4D6C-BAE7-BCC1674A944F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E69BA1D8-64BA-4D6C-BAE7-BCC1674A944F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C4C64CC2-D619-419D-893F-27FA30EC9194}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C4C64CC2-D619-419D-893F-27FA30EC9194}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C4C64CC2-D619-419D-893F-27FA30EC9194}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -81,13 +77,16 @@ Global
 		{B3DD400B-74E7-4007-BF17-89F30A50909D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B3DD400B-74E7-4007-BF17-89F30A50909D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B3DD400B-74E7-4007-BF17-89F30A50909D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5C172BD7-7913-4D9A-8586-028F1E29D1C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C172BD7-7913-4D9A-8586-028F1E29D1C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C172BD7-7913-4D9A-8586-028F1E29D1C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C172BD7-7913-4D9A-8586-028F1E29D1C5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{05779C64-4BF0-422D-8BAD-0161818B0B8B} = {EF8F72D5-B788-4A0B-A24B-C730FC23AEF8}
-		{E69BA1D8-64BA-4D6C-BAE7-BCC1674A944F} = {05779C64-4BF0-422D-8BAD-0161818B0B8B}
 		{C4C64CC2-D619-419D-893F-27FA30EC9194} = {BF986E77-D7A1-41B7-BB3F-9FE81F418B4F}
 		{6D4DE607-ABE2-4F09-B488-D34C29E49D95} = {64944318-592F-48C3-9989-CC31430EBC5B}
 		{F966E50E-EDA6-4A82-A2CB-202A74C05982} = {64944318-592F-48C3-9989-CC31430EBC5B}
@@ -100,6 +99,7 @@ Global
 		{3D1B0804-F9E8-4B91-9203-954C37866DD5} = {E5EB670C-EFFA-49A2-9623-5F82057FA610}
 		{A30EFA2D-E29D-4CAB-814E-C55CDB63F5A5} = {EF8F72D5-B788-4A0B-A24B-C730FC23AEF8}
 		{B3DD400B-74E7-4007-BF17-89F30A50909D} = {A30EFA2D-E29D-4CAB-814E-C55CDB63F5A5}
+		{5C172BD7-7913-4D9A-8586-028F1E29D1C5} = {05779C64-4BF0-422D-8BAD-0161818B0B8B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {13A21A62-A45B-4E07-B360-99D5E813880E}
