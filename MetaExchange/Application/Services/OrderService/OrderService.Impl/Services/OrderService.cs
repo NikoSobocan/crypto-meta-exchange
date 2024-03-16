@@ -43,7 +43,6 @@ public class OrderService : IOrderService
       orders.RemoveAt(0);
 
       OrderBook orderBook = orderBooks.Where(book => book.Id == order.OrderBookId).First();
-      CheckExchangeBalance(orderBook, order, remaingOrderAmount, orderType);
 
       decimal transactionBTCAmount = order.Amount;
 
@@ -67,6 +66,7 @@ public class OrderService : IOrderService
         remaingOrderAmount = 0;
       }
 
+      CheckExchangeBalance(orderBook, order, transactionBTCAmount, orderType);
       AdjustExchangeBalance(orderBook, order, transactionBTCAmount, orderType);
 
       if (remaingOrderAmount != 0 && orders.Count == 0)
