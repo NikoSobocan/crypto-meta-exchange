@@ -21,7 +21,7 @@ public class DataProvider : IDataProvider
       string exchangeBTCBalance;
       string exchangeEURBalance;
 
-      while ((line = await reader.ReadLineAsync().ConfigureAwait(false)) != null)
+      while ((line = await reader.ReadLineAsync()) != null)
       {
         cancellationToken.ThrowIfCancellationRequested();
 

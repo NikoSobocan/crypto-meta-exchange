@@ -71,7 +71,7 @@ public class OrderService : IOrderService
 
       if (remaingOrderAmount != 0 && orders.Count == 0)
       {
-        _logger.LogInformation("There are not enough placed asks/bids to completely fill your order.");
+        _logger.LogError("There are not enough placed asks/bids to completely fill your order.");
         throw new Exception("There are not enough placed asks/bids to completely fill your order.");
       }
     }
@@ -114,7 +114,7 @@ public class OrderService : IOrderService
     {
       if (orderBook.BalanceBTC < BTCAmount)
       {
-        _logger.LogInformation("Insufficient exchange BTC balance to fill your order.");
+        _logger.LogError("Insufficient exchange BTC balance to fill your order.");
         throw new Exception("Insufficient exchange BTC balance to fill your order.");
       }
     }
@@ -122,7 +122,7 @@ public class OrderService : IOrderService
     {
       if (orderBook.BalanceEUR < BTCAmount * order.Price)
       {
-        _logger.LogInformation("Insufficient exchange EUR balance to fill your order.");
+        _logger.LogError("Insufficient exchange EUR balance to fill your order.");
         throw new Exception("Insufficient exchange EUR balance to fill your order.");
       }
     }
