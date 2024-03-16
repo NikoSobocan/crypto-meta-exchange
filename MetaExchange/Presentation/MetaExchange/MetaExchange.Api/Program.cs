@@ -5,6 +5,7 @@ using OrderManagement.Interfaces;
 using OrderManagement.Interfaces.IDataProviders;
 using OrderService.Interfaces.Services;
 using System.Text.Json.Serialization;
+using MetaExchange.Core.ServiceDI;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -25,9 +26,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Logging.AddConsole();
 
-builder.Services.AddSingleton<IDataProvider, DataProvider>();
-builder.Services.AddSingleton<IOrderManager, OrderManager>();
-builder.Services.AddSingleton<IOrderService, OrderService.Impl.Services.OrderService>();
+builder.Services.AddServices();
 
 var app = builder.Build();
 
