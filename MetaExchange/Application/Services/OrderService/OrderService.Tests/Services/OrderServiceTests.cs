@@ -109,6 +109,149 @@ namespace OrderService.Tests.Services
 
     }
 
+    #region GM
+    [TestMethod]
+    [DataRow(OrderTypeEnum.Buy, 0.3, 220)]
+    [DataRow(OrderTypeEnum.Sell, 0.4, 2000.10)]
+    public async Task Test_GM(OrderTypeEnum orderType, double units, double totalEUR)
+    {
+      decimal unitsM = (decimal)units;
+      decimal totalEURM = (decimal)totalEUR;
+
+      var orderBooks = GetGMOrderBooks();
+
+      _orderManagerMock
+        .Setup(om => om.GetOrderBooks(It.IsAny<int>(), It.IsAny<CancellationToken>()))
+        .ReturnsAsync(orderBooks);
+
+      var orderExecutionPlan = await _orderService.GetOptimalOrderExecution(orderType, unitsM, CancellationToken.None);
+
+      orderExecutionPlan.Should().NotBeNull();
+
+      decimal boughtOrSoldUnits = orderExecutionPlan.Sum(o => o.Amount);
+      boughtOrSoldUnits.Should().Be(unitsM);
+
+      decimal spentOrReceivedEur = orderExecutionPlan.Sum(o => o.Amount * o.Price);
+      spentOrReceivedEur.Should().Be(totalEURM);
+    }
+
+    private static List<OrderBook> GetGMOrderBooks()
+    {
+      var expensiveOrderBook = new OrderBook
+      {
+        Id = 1,
+        BalanceBTC = 0.15m,
+        BalanceEUR = 9000m
+      };
+      expensiveOrderBook.Bids = new List<OrderWrapper>
+      {
+        new()
+        {
+          Order = new()
+          {
+            OrderBookId = expensiveOrderBook.Id,
+            Type = OrderTypeEnum.Buy,
+            Amount = 0.1m,
+            Price = 10000m
+          }
+        },
+        new()
+        {
+          Order = new()
+          {
+            OrderBookId = expensiveOrderBook.Id,
+            Type = OrderTypeEnum.Buy,
+            Amount = 0.1m,
+            Price = 10000m
+          }
+        }
+      };
+      expensiveOrderBook.Asks = new List<OrderWrapper>
+      {
+        new()
+        {
+          Order = new()
+          {
+            OrderBookId = expensiveOrderBook.Id,
+            Type = OrderTypeEnum.Sell,
+            Amount = 0.2m,
+            Price = 2000m
+          }
+        },
+        new()
+        {
+          Order = new()
+          {
+            OrderBookId = expensiveOrderBook.Id,
+            Type = OrderTypeEnum.Sell,
+            Amount = 100m,
+            Price = 10000m
+          }
+        }
+      };
+
+
+      var cheapOrderBook = new OrderBook
+      {
+        Id = 2,
+        BalanceBTC = 9000m,
+        BalanceEUR = 15m
+      };
+      cheapOrderBook.Bids = new List<OrderWrapper>
+      {
+        new()
+        {
+          Order = new()
+          {
+            OrderBookId = cheapOrderBook.Id,
+            Type = OrderTypeEnum.Buy,
+            Amount = 0.2m,
+            Price = 0.5m
+          }
+        },
+        new()
+        {
+          Order = new()
+          {
+            OrderBookId = cheapOrderBook.Id,
+            Type = OrderTypeEnum.Buy,
+            Amount = 100m,
+            Price = 0.1m
+          }
+        }
+      };
+      cheapOrderBook.Asks = new List<OrderWrapper>
+      {
+        new()
+        {
+          Order = new()
+          {
+            OrderBookId = cheapOrderBook.Id,
+            Type = OrderTypeEnum.Sell,
+            Amount = 0.1m,
+            Price = 100m
+          }
+        },
+        new()
+        {
+          Order = new()
+          {
+            OrderBookId = cheapOrderBook.Id,
+            Type = OrderTypeEnum.Sell,
+            Amount = 0.1m,
+            Price = 100m
+          }
+        }
+      };
+
+      return new List<OrderBook>
+      {
+        expensiveOrderBook,
+        cheapOrderBook
+      };
+    }
+    #endregion GM
+
     private List<OrderBook> GetMockOrderBookData()
     {
       return new List<OrderBook> {
