@@ -46,27 +46,21 @@ public class OrderService : IOrderService
 
       decimal transactionBTCAmount = order.Amount;
 
-      if (order.Amount <= remaingOrderAmount)
-      {
-        orderExecutions.Add(order);
-        remaingOrderAmount -= order.Amount;
-      }
-      else
+      if (order.Amount > remaingOrderAmount)
       {
         // Partial order fill
-        orderExecutions.Add(new Order
-        {
-          OrderBookId = order.OrderBookId,
-          Amount = remaingOrderAmount,
-          Price = order.Price,
-          Type = order.Type
-        });
-
+        order.Amount = remaingOrderAmount;
         transactionBTCAmount = remaingOrderAmount;
-        remaingOrderAmount = 0;
       }
 
-      CheckExchangeBalance(orderBook, order, transactionBTCAmount, orderType);
+      CheckExchangeBalanceAndAdjustOrder(orderBook, order, transactionBTCAmount, orderType);
+      remaingOrderAmount -= order.Amount;
+
+      if (order.Amount != 0)
+      {
+        orderExecutions.Add(order);
+      }
+
       AdjustExchangeBalance(orderBook, order, transactionBTCAmount, orderType);
 
       if (remaingOrderAmount != 0 && orders.Count == 0)
@@ -78,7 +72,7 @@ public class OrderService : IOrderService
 
     if (_logger.IsEnabled(LogLevel.Debug))
     {
-      _logger.LogDebug($"GetOptimalOrderExecution called with order executions: {orderExecutions}");
+      _logger.LogDebug($"GetOptimalOrderExecution finished with order executions: {orderExecutions}");
     }
 
     return orderExecutions;
@@ -93,17 +87,17 @@ public class OrderService : IOrderService
 
     if (orderType == OrderTypeEnum.Buy)
     {
-      orderBook.BalanceBTC = orderBook.BalanceBTC - BTCAmount;
-      orderBook.BalanceEUR = orderBook.BalanceEUR + BTCAmount * order.Price;
-    }
-    else if (orderType == OrderTypeEnum.Sell)
-    {
       orderBook.BalanceBTC = orderBook.BalanceBTC + BTCAmount;
       orderBook.BalanceEUR = orderBook.BalanceEUR - BTCAmount * order.Price;
     }
+    else if (orderType == OrderTypeEnum.Sell)
+    {
+      orderBook.BalanceBTC = orderBook.BalanceBTC - BTCAmount;
+      orderBook.BalanceEUR = orderBook.BalanceEUR + BTCAmount * order.Price;
+    }
   }
 
-  private void CheckExchangeBalance(OrderBook orderBook, Order order, decimal BTCAmount, OrderTypeEnum orderType)
+  private void CheckExchangeBalanceAndAdjustOrder(OrderBook orderBook, Order order, decimal BTCAmount, OrderTypeEnum orderType)
   {
     if (_logger.IsEnabled(LogLevel.Debug))
     {
@@ -112,18 +106,20 @@ public class OrderService : IOrderService
 
     if (orderType == OrderTypeEnum.Buy)
     {
-      if (orderBook.BalanceBTC < BTCAmount)
+      if (orderBook.BalanceEUR < BTCAmount * order.Price)
       {
-        _logger.LogError("Insufficient exchange BTC balance to fill your order.");
-        throw new Exception("Insufficient exchange BTC balance to fill your order.");
+        order.Amount = orderBook.BalanceEUR / order.Price;
+
+        _logger.LogInformation("Insufficient exchange EUR balance to fill the whole order. Partial filling order.");
       }
     }
     else if (orderType == OrderTypeEnum.Sell)
     {
-      if (orderBook.BalanceEUR < BTCAmount * order.Price)
+      if (orderBook.BalanceBTC < BTCAmount)
       {
-        _logger.LogError("Insufficient exchange EUR balance to fill your order.");
-        throw new Exception("Insufficient exchange EUR balance to fill your order.");
+        order.Amount = orderBook.BalanceBTC;
+
+        _logger.LogInformation("Insufficient exchange BTC balance to fill the whole order. Partial filling order.");
       }
     }
   }

@@ -75,8 +75,8 @@ namespace OrderService.Tests.Services
 
       IList<Order> orderExecution = await _orderService.GetOptimalOrderExecution(OrderTypeEnum.Buy, 1, CancellationToken.None);
 
-      orderBooks[0].BalanceBTC.Should().BeLessThan(orderBooksCopy[0].BalanceBTC);
-      orderBooks[0].BalanceEUR.Should().BeGreaterThan(orderBooksCopy[0].BalanceEUR);
+      orderBooks[0].BalanceBTC.Should().BeGreaterThan(orderBooksCopy[0].BalanceBTC);
+      orderBooks[0].BalanceEUR.Should().BeLessThan(orderBooksCopy[0].BalanceEUR);
 
     }
 
@@ -91,8 +91,8 @@ namespace OrderService.Tests.Services
 
       IList<Order> orderExecution = await _orderService.GetOptimalOrderExecution(OrderTypeEnum.Sell, 1, CancellationToken.None);
 
-      orderBooks[0].BalanceBTC.Should().BeGreaterThan(orderBooksCopy[0].BalanceBTC);
-      orderBooks[0].BalanceEUR.Should().BeLessThan(orderBooksCopy[0].BalanceEUR);
+      orderBooks[0].BalanceBTC.Should().BeLessThan(orderBooksCopy[0].BalanceBTC);
+      orderBooks[0].BalanceEUR.Should().BeGreaterThan(orderBooksCopy[0].BalanceEUR);
     }
 
     [TestMethod]
@@ -111,8 +111,8 @@ namespace OrderService.Tests.Services
 
     #region GM
     [TestMethod]
-    [DataRow(OrderTypeEnum.Buy, 0.3, 220)]
-    [DataRow(OrderTypeEnum.Sell, 0.4, 2000.10)]
+    [DataRow(OrderTypeEnum.Buy, 0.4, 915)]
+    [DataRow(OrderTypeEnum.Sell, 0.4, 1500.105)]
     public async Task Test_GM(OrderTypeEnum orderType, double units, double totalEUR)
     {
       decimal unitsM = (decimal)units;
